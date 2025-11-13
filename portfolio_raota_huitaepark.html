@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>박희태 | 라멘 맛집 정리 프로젝트 라오타</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.12);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --card: #0b1120;
+      --radius-xl: 18px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 20px 72px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.8), transparent);
+    }
+
+    .nav {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 18px 20px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: conic-gradient(from 220deg, #f97316, #fb923c, #22d3ee, #6366f1, #f97316);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(249, 115, 22, 0.6);
+    }
+
+    .logo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .brand-title {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(to right, #f97316, #22d3ee);
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: #e5e7eb;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      margin-top: 18px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 42px;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+    }
+
+    .hero-title {
+      margin: 14px 0 6px;
+      font-size: clamp(28px, 5vw, 36px);
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #f97316, #fb923c, #22d3ee);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-body {
+      font-size: 14px;
+      color: #d1d5db;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+      background: none;
+      color: inherit;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top left, #fed7aa 0, #f97316 40%, #ea580c 80%);
+      color: #111827;
+      box-shadow: 0 14px 28px rgba(249, 115, 22, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(249, 115, 22, 0.75);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(148, 163, 184, 0.12), transparent 55%);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(249, 115, 22, 0.9);
+      color: #e5e7eb;
+    }
+
+    .btn-icon {
+      font-size: 14px;
+    }
+
+    .hero-right {
+      justify-self: stretch;
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.08), transparent 55%),
+                  var(--card);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.16) 0, transparent 55%),
+                        radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.6) 0, transparent 70%);
+      mix-blend-mode: soft-light;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.82);
+    }
+
+    .pill-accent {
+      border-color: transparent;
+      background: rgba(249, 115, 22, 0.15);
+      color: #fed7aa;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .card-stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .card-stat {
+      flex: 1 1 80px;
+      min-width: 80px;
+      font-size: 11px;
+      color: var(--muted);
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.1), transparent 55%);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .card-stat strong {
+      display: block;
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-bottom: 2px;
+    }
+
+    section {
+      margin-top: 40px;
+      border-radius: 20px;
+      padding: 20px 20px 18px;
+      background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+    }
+
+    section + section {
+      margin-top: 26px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title-badge {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 2fr);
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 880px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .text-sm {
+      font-size: 13px;
+      color: #d1d5db;
+    }
+
+    .text-xs {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    ul.inline {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    ul.inline li {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 11px;
+      color: #d1d5db;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .skill-card {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      font-size: 12px;
+    }
+
+    .skill-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+
+    .badge-stack {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      margin-top: 4px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .project-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .project-tagline {
+      font-size: 13px;
+      color: #d1d5db;
+      margin-bottom: 12px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .meta-pill {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .project-section {
+      margin-top: 10px;
+    }
+
+    .project-section h4 {
+      font-size: 13px;
+      margin: 0 0 4px;
+    }
+
+    .project-section p {
+      font-size: 13px;
+      margin: 0 0 6px;
+      color: #d1d5db;
+    }
+
+    .project-section ul {
+      margin: 0 0 4px 18px;
+      padding: 0;
+      font-size: 13px;
+      color: #d1d5db;
+    }
+
+    .project-section li + li {
+      margin-top: 2px;
+    }
+
+    .accent-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(249, 115, 22, 0.1);
+      color: #fed7aa;
+      border: 1px solid rgba(248, 171, 96, 0.7);
+    }
+
+    .accent-chip span {
+      font-size: 10px;
+      opacity: 0.8;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 2fr);
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.88);
+    }
+
+    .contact-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .contact-value {
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+
+    .contact-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      border-radius: 14px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.93);
+      color: #e5e7eb;
+      padding: 10px 11px;
+      font-family: inherit;
+      font-size: 13px;
+      resize: vertical;
+    }
+
+    textarea::placeholder {
+      color: var(--muted);
+    }
+
+    footer {
+      max-width: 1080px;
+      margin: 32px auto 0;
+      padding: 12px 20px 24px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding-inline: 14px;
+      }
+
+      section {
+        padding-inline: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="logo">
+          <div class="logo-inner">H</div>
+        </div>
+        <div>
+          <div class="brand-title">박희태</div>
+          <div class="brand-sub">깊게 파고드는 백엔드 개발자</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#project">Project - 라오타</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page">
+    <main>
+      <section class="hero" id="top">
+        <div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Backend Developer in progress</span>
+          </div>
+
+          <h1 class="hero-title">
+            모든 문제를 대충 넘기지 않고
+            <span>깊게 파고드는 백엔드 개발자</span>
+          </h1>
+          <p class="hero-subtitle">
+            라멘 웨이팅처럼, 트래픽도 줄 세워서 차분하게 처리합니다.
+          </p>
+          <div class="hero-body">
+            <p>I'm an aspiring backend developer who loves digging deep into the core of every problem! (•̀ᴗ•́)و ̑̑</p>
+            <p>
+              I don’t settle for surface-level understanding — I keep going until I truly grasp the underlying
+              principles. I'm not afraid of trial and error. Every mistake is a stepping stone, and every challenge is a
+              chance to grow.
+            </p>
+            <p>
+              꾸준히, 조금씩이라도 성장하는 개발자가 되는 것을 목표로 하고 있습니다. 서비스의 안정성과 성능을 고민하며,
+              실제 유저에게 의미 있는 가치를 주는 백엔드 시스템을 만드는 데 관심이 많습니다. 🚀
+            </p>
+          </div>
+
+          <div class="hero-actions">
+            <a href="#project" class="btn-primary">
+              <span class="btn-icon">🍜</span>
+              <span>대표 프로젝트 &ldquo;라오타&rdquo; 보러가기</span>
+            </a>
+            <a href="#contact" class="btn-ghost">
+              <span class="btn-icon">✉️</span>
+              <span>Contact &amp; Links</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="card">
+            <div class="card-inner">
+              <div class="pill-row">
+                <span class="pill pill-accent">라멘 맛집 정리 프로젝트 라오타</span>
+                <span class="pill">트래픽/캐시/쿼리 튜닝</span>
+              </div>
+              <div class="card-title">조회 트래픽에 강한 라멘 맛집 아카이브</div>
+              <div class="card-meta">
+                피크 타임에도 가게 상세 조회가 버티는지, 
+                DB · 캐시 · 인프라를 함께 설계한 프로젝트입니다.
+              </div>
+              <div class="card-stat-row">
+                <div class="card-stat">
+                  <strong>Master / Slave</strong>
+                  읽기 분리로 조회 트래픽 분산
+                </div>
+                <div class="card-stat">
+                  <strong>Local Cache + Redis</strong>
+                  조회 성능 최적화 &amp; 캐시 일관성 관리
+                </div>
+                <div class="card-stat">
+                  <strong>Auto Scaling</strong>
+                  트래픽 급증 구간 대응 설계
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="section-header">
+          <div class="section-title">
+            About Me
+            <span class="section-title-badge">소개</span>
+          </div>
+          <div class="section-subtitle">
+            개념을 끝까지 따라가 보는 것을 좋아하고, 실패를 학습 데이터로 삼는 스타일입니다.
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="text-sm">
+            <p>
+              문제를 만났을 때 &ldquo;일단 돌아가게만 만들자&rdquo;보다, 
+              <strong>왜 이런 현상이 발생하는지, 어디까지 확장될 수 있는지</strong>를 같이 고민하는 것을 선호합니다.
+              그래서 장애 상황을 재현하고, 로그를 뜯어보고, 구조를 다시 그려보는 작업을 즐깁니다.
+            </p>
+            <p>
+              단기간에 반짝 성장하기보다, 
+              <strong>꾸준한 기록과 회고</strong>를 통해 성장하는 개발자를 지향합니다.
+              작은 기능이라도 왜 이런 설계를 택했는지, 어떤 트레이드오프가 있었는지 메모하고 있습니다.
+            </p>
+          </div>
+          <div class="text-xs">
+            <p><strong>관심사</strong></p>
+            <ul class="inline">
+              <li>트래픽 급증 상황에서의 시스템 안정성</li>
+              <li>DB 쿼리 튜닝 &amp; 인덱싱 전략</li>
+              <li>캐싱 계층 설계 (Local Cache / Redis)</li>
+              <li>메시지 큐 기반 비동기 처리</li>
+            </ul>
+            <p style="margin-top: 8px;"><strong>요즘 공부 중인 키워드</strong></p>
+            <ul class="inline">
+              <li>JPA N+1 문제와 성능 최적화</li>
+              <li>마스터-슬레이브 복제 구조</li>
+              <li>오토 스케일링 &amp; 헬스 체크</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="section-header">
+          <div class="section-title">
+            Skills
+            <span class="section-title-badge">기술 스택</span>
+          </div>
+          <div class="section-subtitle">
+            백엔드 중심으로, 서비스 운영을 고려한 스택을 익히고 있습니다.
+          </div>
+        </div>
+
+        <div class="skill-grid">
+          <div class="skill-card">
+            <strong>Backend</strong>
+            <div>Java, Spring Boot</div>
+            <div class="badge-stack">
+              <span class="dot"></span>
+              <span>REST API 설계, 계층형 아키텍처, JPA 기반 도메인 모델링</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <strong>Database</strong>
+            <div>MySQL, Oracle</div>
+            <div class="badge-stack">
+              <span class="dot"></span>
+              <span>인덱스 설계, 쿼리 최적화, 마스터-슬레이브 읽기 분리 실습</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <strong>Caching &amp; Messaging</strong>
+            <div>Local Cache, Redis (Cache &amp; MQ)</div>
+            <div class="badge-stack">
+              <span class="dot"></span>
+              <span>조회 성능 개선, 캐시 불일치 해소를 위한 메시지 기반 갱신</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <strong>Infra &amp; DevOps (기초)</strong>
+            <div>AWS, Auto Scaling, CI/CD 경험</div>
+            <div class="badge-stack">
+              <span class="dot"></span>
+              <span>간단한 오토 스케일링 설정과 배포 파이프라인 구성 경험</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="project">
+        <div class="section-header">
+          <div class="section-title">
+            Project - 라멘 맛집 정리 프로젝트 &ldquo;라오타&rdquo;
+            <span class="section-title-badge">개인 프로젝트</span>
+          </div>
+          <div class="section-subtitle">
+            실제 서비스 트래픽을 견딜 수 있는 라멘 맛집 아카이브를 목표로 설계한 백엔드 프로젝트입니다.
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="project-title">라멘 맛집 정리 프로젝트 라오타</div>
+            <div class="project-tagline">조회 트래픽에 강한 라멘 맛집 인증/기록 서비스</div>
+
+            <div class="project-meta">
+              <span class="meta-pill">Java · Spring Boot</span>
+              <span class="meta-pill">MySQL (Master / Slave)</span>
+              <span class="meta-pill">Redis (Cache &amp; MQ)</span>
+              <span class="meta-pill">Auto Scaling</span>
+            </div>
+
+            <div class="project-section">
+              <h4>[문제 정의]</h4>
+              <p>
+                라멘 맛집을 자주 방문하는 유저들이 인증샷, 방문 기록, 웨이팅 시간 등을 인스타그램, 메모 앱, 블로그 등 
+                여러 곳에 흩어져 관리하고 있었습니다. 한 번 다녀온 가게를 다시 찾거나, &ldquo;이 가게 웨이팅이 어느 정도였지?&rdquo;
+                같은 정보를 빠르게 확인하기 어려운 문제가 있었습니다.
+              </p>
+              <p>
+                특히 특정 인기 가게의 상세 페이지 조회가 특정 시간대(오픈 직후, 점심 피크 타임)에 몰리면서,
+                <strong>DB 부하가 급격히 증가하고 응답 속도가 느려지는 상황</strong>이 발생했습니다.
+                라오타는 이런 조회 트래픽을 버티면서도, 유저에게 빠르게 정보를 제공하는 것을 목표로 했습니다.
+              </p>
+            </div>
+
+            <div class="project-section">
+              <h4>[아키텍처 / 설계]</h4>
+              <p>
+                백엔드는 Spring Boot와 JPA를 기반으로 설계했고, 데이터베이스는 MySQL을 사용했습니다.
+                조회 트래픽이 집중되는 특성을 고려해 다음과 같은 설계 결정을 내렸습니다.
+              </p>
+              <ul>
+                <li><strong>Master / Slave 구조</strong>로 데이터베이스를 구성하여, 쓰기는 Master, 조회는 Slave로 분리</li>
+                <li><strong>조회 성능 개선을 위한 로컬 캐싱</strong> 도입 및, 캐시 불일치 문제 해결을 위해 <strong>Redis 기반 MQ</strong> 사용</li>
+                <li>트래픽 피크 타임 대응을 위해 <strong>오토 스케일링 &amp; 헬스 체크</strong>를 고려한 인프라 구성</li>
+                <li>슬로 쿼리 로그를 기반으로 <strong>쿼리 튜닝 및 인덱스 재설계</strong> 진행</li>
+              </ul>
+              <p class="accent-chip">
+                <strong>핵심 키워드</strong>
+                <span>조회 트래픽 분산 · 캐시 일관성 · 쿼리 최적화</span>
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div class="project-section">
+              <h4>[핵심 기능 1 - 조회 트래픽 분산 및 캐시 기반 성능 최적화]</h4>
+              <p>
+                <strong>Master / Slave DB 분리</strong>와 <strong>캐시 계층</strong>을 함께 설계해 조회 성능을 개선했습니다.
+              </p>
+              <ul>
+                <li>
+                  가게 상세, 인기 가게 목록 등 조회 API는 기본적으로 Slave DB를 사용하도록 <strong>읽기 전용 DataSource 라우팅</strong> 적용
+                </li>
+                <li>
+                  자주 조회되는 가게 정보는 <strong>로컬 캐시</strong>에 저장해, 같은 인스턴스 내에서는 DB까지 가지 않도록 처리
+                </li>
+                <li>
+                  데이터 변경(가게 정보 수정, 통계 반영) 시 <strong>Redis MQ</strong>에 캐시 무효화 이벤트를 발행해
+                  다수 인스턴스 간 캐시 일관성 문제를 줄이도록 설계
+                </li>
+              </ul>
+            </div>
+
+            <div class="project-section">
+              <h4>[핵심 기능 2 - 쿼리 최적화 &amp; 오토 스케일링을 통한 안정성 확보]</h4>
+              <p>
+                트래픽이 몰릴 때도 서비스가 버틸 수 있도록, 쿼리와 인프라를 함께 개선했습니다.
+              </p>
+              <ul>
+                <li>
+                  가게 통계(방문 수, 인증샷 수, 찜 수) 조회 시 <strong>집계용 쿼리</strong>와 <strong>인덱스</strong>를 재설계해
+                  불필요한 <code>FULL SCAN</code>을 줄임
+                </li>
+                <li>
+                  N+1 문제가 발생하던 영역은 <strong>페치 조인</strong> 또는 <strong>전용 조회용 DTO 쿼리</strong>로 개선
+                </li>
+                <li>
+                  인스턴스 CPU/메모리 사용량 기준으로 <strong>오토 스케일링</strong>을 적용할 수 있도록 설계하고,
+                  스케일 아웃 시에도 캐시 일관성이 유지되도록 Redis 기반 구조를 함께 고려
+                </li>
+              </ul>
+            </div>
+
+            <div class="project-section">
+              <h4>[나의 역할 및 기여]</h4>
+              <ul>
+                <li>전체 백엔드 아키텍처 설계 및 Spring Boot 프로젝트 구조 설계</li>
+                <li>MySQL Master / Slave 구조 설계 및 조회 전용 라우팅 구현</li>
+                <li>로컬 캐시 + Redis MQ를 활용한 캐시 전략 설계 및 적용</li>
+                <li>슬로 쿼리 분석, 인덱스 튜닝, N+1 문제 해결 등 성능 개선 작업</li>
+              </ul>
+            </div>
+
+            <div class="project-section">
+              <h4>[결과 및 성과]</h4>
+              <ul>
+                <li>
+                  인기 가게 상세 조회 API의 평균 응답 시간을 <strong>약 30~40% 정도 단축</strong> (캐시 적중 시에는 훨씬 더 빠르게 응답)
+                </li>
+                <li>
+                  피크 타임 트래픽(동시 조회 요청) 시에도 DB CPU 사용률이 상대적으로 안정적으로 유지되도록 개선</li>
+                <li>
+                  시스템 구조를 관점에서 <strong>트래픽, 캐시, DB를 함께 보는 습관</strong>을 갖게 된 계기가 됨
+                </li>
+              </ul>
+            </div>
+
+            <div class="project-section">
+              <h4>[회고 - 배운 점]</h4>
+              <ul>
+                <li>Master / Slave 구조가 단순히 &ldquo;읽기 분리&rdquo;가 아니라, <strong>일관성 지연과 장애 대응 전략</strong>까지 함께 고민해야 한다는 점</li>
+                <li>
+                  캐시는 성능을 주지만, <strong>캐시 불일치</strong>를 해결하기 위한 전략(만료, 무효화, 메시지 큐 등)이 필수라는 점을 체감
+                </li>
+                <li>
+                  쿼리 한 줄, 인덱스 하나가 <strong>트래픽이 몰릴 때 어떤 영향을 주는지</strong>를 로그와 모니터링으로 확인해 볼 수 있었음
+                </li>
+              </ul>
+            </div>
+
+            <div class="project-section">
+              <h4>[회고 - 개선하고 싶은 점]</h4>
+              <ul>
+                <li>
+                  조회 모델을 더 분리해 <strong>CQRS 패턴</strong>에 가깝게 설계하고, 통계/피드용 조회를 더 최적화해보고 싶습니다.
+                </li>
+                <li>
+                  현재는 기본적인 모니터링 위주지만, 추후 <strong>에러율 · P95 응답 시간</strong>을 기준으로 한 알람 체계를 정교하게 구성해 보고 싶습니다.
+                </li>
+                <li>
+                  캐시 전략과 메시지 큐 부분에 대해 <strong>테스트 코드</strong>를 더 촘촘히 작성하고, 장애 시나리오를 자동화된 테스트로 검증하고 싶습니다.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-header">
+          <div class="section-title">
+            Contact &amp; Links
+            <span class="section-title-badge">연락처 &amp; 링크</span>
+          </div>
+          <div class="section-subtitle">
+            협업, 코드 리뷰, 피드백은 언제든 환영합니다.
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div>
+            <div class="contact-list">
+              <div class="contact-item">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">qkrgmlxo3174@gmail.com</span>
+              </div>
+              <a class="contact-item" href="https://github.com/HuitaePark" target="_blank" rel="noreferrer">
+                <span class="contact-label">GitHub</span>
+                <span class="contact-value">github.com/HuitaePark</span>
+              </a>
+              <a class="contact-item" href="https://www.linkedin.com/in/bakitae/" target="_blank" rel="noreferrer">
+                <span class="contact-label">LinkedIn</span>
+                <span class="contact-value">linkedin.com/in/bakitae</span>
+              </a>
+            </div>
+            <p class="contact-note">
+              코드나 설계에 대한 피드백, 스터디 제안, 사이드 프로젝트 제안 모두 환영합니다 :)
+            </p>
+          </div>
+          <div>
+            <textarea placeholder="보내고 싶은 메시지를 미리 적어보는 공간입니다 (이 사이트는 정적 사이트라 실제 메일은 전송되지 않습니다)"></textarea>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div>© <span id="year"></span> 박희태. 라멘과 함께 성장하는 백엔드 개발자.</div>
+  </footer>
+
+  <script>
+    // 연도 자동 표기
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
